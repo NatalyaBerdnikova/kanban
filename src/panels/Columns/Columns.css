@@ -1,0 +1,15 @@
+.columns .Panel__in {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns__list {
+  display: flex;
+  height: auto;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.columns__list .Gallery__viewport {
+  flex-grow: 1;
+}

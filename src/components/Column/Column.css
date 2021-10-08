@@ -1,0 +1,25 @@
+.column {
+  box-sizing: border-box;
+}
+
+.column__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.column__wrapper {
+  box-sizing: border-box;
+  padding: 16px 0;
+  border: 1px solid black;
+  background-color: #fff;
+}
+
+.column__button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
