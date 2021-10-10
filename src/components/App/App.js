@@ -9,6 +9,7 @@ import Columns from "../../panels/Columns/Columns";
 import { panel } from "./constants";
 import Context from "./context";
 import { useAppState } from "./hooks";
+import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
 const App = () => {
   // Приложение
@@ -16,18 +17,22 @@ const App = () => {
   const state = useAppState();
 
   return (
-    <Context.Provider value={state}>
-      <AdaptivityProvider>
-        <AppRoot>
-          <View activePanel={state.activePanel}>
-            <Panel id={panel.desks}>
-              <Desks />
-            </Panel>
-            <Panel id={panel.columns}>{state.activeDesk && <Columns />}</Panel>
-          </View>
-        </AppRoot>
-      </AdaptivityProvider>
-    </Context.Provider>
+    <ErrorBoundary>
+      <Context.Provider value={state}>
+        <AdaptivityProvider>
+          <AppRoot>
+            <View activePanel={state.activePanel}>
+              <Panel id={panel.desks}>
+                <Desks />
+              </Panel>
+              <Panel id={panel.columns}>
+                {state.activeDesk && <Columns />}
+              </Panel>
+            </View>
+          </AppRoot>
+        </AdaptivityProvider>
+      </Context.Provider>
+    </ErrorBoundary>
   );
 };
 
