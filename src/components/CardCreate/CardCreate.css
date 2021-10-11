@@ -1,0 +1,18 @@
+.create-form__wrapper {
+  box-sizing: border-box;
+  padding-bottom: 0;
+}
+
+.card-create-form__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-create-form__action-button {
+  flex-grow: 1;
+}
+
+.card-create-form__input {
+  margin-bottom: 15px;
+}

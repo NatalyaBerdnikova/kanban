@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Div } from "@vkontakte/vkui";
 
-import CreateForm from "../CreateForm/CreateForm";
+import CardCreateForm from "./CardCreateForm";
 import { createCard } from "../../actions/index";
 import Context from "../../components/App/context";
+
+import "./CardCreate.css";
 
 const CardCreate = ({ columnId }) => {
   const { addCard } = useContext(Context);
@@ -16,12 +18,8 @@ const CardCreate = ({ columnId }) => {
   };
 
   return (
-    <Div className="column">
-      <CreateForm
-        onSubmit={createItem}
-        placeholder="Enter card's name"
-        actionTitle="Create a card"
-      />
+    <Div className="create-form__wrapper">
+      <CardCreateForm onSubmit={createItem} />
     </Div>
   );
 };

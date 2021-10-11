@@ -16,10 +16,10 @@ const Columns = () => {
   return (
     <>
       <PanelHeader left={<PanelHeaderBack onClick={goToDesks} />}>
-        Desk {activeDesk.name}
+        Desk "{activeDesk.name}"
       </PanelHeader>
 
-      <Gallery className="columns__list" slideWidth="100%" align="center">
+      <Gallery className="columns__list" slideWidth="85%" align="left">
         {columns.map(({ id, name }) => (
           <Column key={id} name={name} id={id} />
         ))}

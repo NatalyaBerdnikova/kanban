@@ -21,7 +21,7 @@ const App = () => {
       <Context.Provider value={state}>
         <AdaptivityProvider>
           <AppRoot>
-            <View activePanel={state.activePanel}>
+            <View activePanel={state.activePanel} popout={state.popout}>
               <Panel id={panel.desks}>
                 <Desks />
               </Panel>

@@ -15,12 +15,9 @@ const ColumnCard = ({ children, id }) => {
   };
 
   return (
-    <Card>
+    <Card mode="outline">
       <div className="card__wrapper">
         <Div>{children}</Div>
-        <Button size="m" mode="destructive" onClick={deleteItem}>
-          Delete
-        </Button>
       </div>
     </Card>
   );

@@ -8,6 +8,7 @@
   height: auto;
   flex-direction: column;
   flex-grow: 1;
+  background-color: var(--dynamic_blue);
 }
 
 .columns__list .Gallery__viewport {
