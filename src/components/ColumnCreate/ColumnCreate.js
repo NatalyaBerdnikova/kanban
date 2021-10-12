@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Div } from "@vkontakte/vkui";
+import { useRoute } from "react-router5";
 
 import ColumnCreateForm from "./ColumnCreateForm";
 import "./ColumnCreate";
@@ -7,10 +8,16 @@ import { createColumn } from "../../actions/index";
 import Context from "../App/context";
 
 const ColumnCreate = () => {
-  const { addColumn, activeDesk } = useContext(Context);
+  const { desks, addColumn } = useContext(Context);
+  const {
+    route: {
+      params: { deskId },
+    },
+  } = useRoute();
+  const desk = desks.find(({ id }) => id === deskId) || {};
 
   const createItem = (name) => {
-    return createColumn(name, activeDesk.id)
+    return createColumn(name, desk.id)
       .then((doc) => addColumn({ id: doc.id, name }))
       .catch((e) => console.log(e));
   };

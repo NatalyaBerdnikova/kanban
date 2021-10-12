@@ -2,15 +2,10 @@ import React, { useEffect, useContext } from "react";
 import { CardGrid } from "@vkontakte/vkui";
 
 import DeskItem from "../DeskItem/DeskItem";
-import { getDesks } from "../../actions/index";
 import Context from "../App/context";
 
 const DesksList = () => {
-  const { setDesks, desks } = useContext(Context);
-
-  useEffect(() => {
-    getDesks().then(setDesks);
-  }, []);
+  const { desks } = useContext(Context);
 
   if (!desks.length) {
     return null;

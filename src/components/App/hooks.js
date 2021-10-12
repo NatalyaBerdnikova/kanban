@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRoute } from "react-router5";
 
-import { panel } from "./constants";
+import { pages } from "../../router";
+import { getDesks } from "../../actions";
 
 const useColumnsState = () => {
   const [columns, setColumns] = useState([]);
@@ -15,19 +17,23 @@ const useDesksState = () => {
   const addDesk = (desk) => setDesks([...desks, desk]);
   const removeDesk = (removeId) =>
     setDesks(desks.filter(({ id }) => id !== removeId));
+
+  // Запрос в базу данных за досками
+  useEffect(() => {
+    getDesks().then(setDesks);
+  }, []);
+
   return { desks, setDesks, addDesk, removeDesk };
 };
 
-const useNavState = (desks) => {
-  const [activePanel, setActivePanel] = useState(panel.desks);
-  const [activeDesk, setActiveDesk] = useState(null);
-  const goToColumns = (deskId) => {
-    setActiveDesk(desks.find(({ id }) => id === deskId));
-    setActivePanel(panel.columns);
-  };
-  const goToDesks = () => setActivePanel(panel.desks);
+const useNavState = () => {
+  const [activePanel, setActivePanel] = useState(null);
 
-  return { activePanel, activeDesk, goToColumns, goToDesks };
+  const changeRoute = ({ route }) => {
+    setActivePanel(route.name);
+  };
+
+  return { activePanel, changeRoute };
 };
 
 export const useCardsState = () => {
@@ -49,7 +55,7 @@ export const useAppState = () => {
   const desksState = useDesksState();
   const columnsState = useColumnsState();
   const cardsState = useCardsState();
-  const appState = useNavState(desksState.desks);
+  const appState = useNavState();
   const popoutState = usePopoutState();
 
   return {

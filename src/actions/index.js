@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 
-export const initApp = () => {
+export const initialize = () => {
   initializeApp({
     apiKey: "AIzaSyCtJNWYtVSAIV_nRfo21XVYEjf-_b4K1vY",
     authDomain: "kanban-6d763.firebaseapp.com",
@@ -52,10 +52,10 @@ export const deleteDesk = async (id) => {
   return await deleteDoc(doc(db, "desks", id));
 };
 
-export const getColumns = async (desk) => {
+export const getColumns = async (deskId) => {
   const db = getFirestore();
   const columns = [];
-  const q = query(collection(db, "columns"), where("deskId", "==", desk.id));
+  const q = query(collection(db, "columns"), where("deskId", "==", deskId));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach((doc) => {
     const { deskId, name } = doc.data();

@@ -1,38 +1,42 @@
-import React from "react";
+import React, { useEffect, Fragment } from "react";
 import { View, Panel, AdaptivityProvider, AppRoot } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
-
-import { initApp } from "../../actions/index";
+import { useRoute } from "react-router5";
 
 import Desks from "../../panels/Desks/Desks";
 import Columns from "../../panels/Columns/Columns";
-import { panel } from "./constants";
-import Context from "./context";
 import { useAppState } from "./hooks";
-import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+import { pages } from "../../router";
 
 const App = () => {
-  // Приложение
-  initApp();
-  const state = useAppState();
+  const { activePanel, popout, changeRoute } = useAppState();
+  const { router, route } = useRoute();
+
+  useEffect(() => {
+    router.subscribe(changeRoute);
+
+    changeRoute({ route });
+  }, []);
+
+  if (!activePanel) {
+    return null;
+  }
 
   return (
-    <ErrorBoundary>
-      <Context.Provider value={state}>
-        <AdaptivityProvider>
-          <AppRoot>
-            <View activePanel={state.activePanel} popout={state.popout}>
-              <Panel id={panel.desks}>
-                <Desks />
-              </Panel>
-              <Panel id={panel.columns}>
-                {state.activeDesk && <Columns />}
-              </Panel>
-            </View>
-          </AppRoot>
-        </AdaptivityProvider>
-      </Context.Provider>
-    </ErrorBoundary>
+    <Fragment>
+      <AdaptivityProvider>
+        <AppRoot>
+          <View activePanel={activePanel} popout={popout}>
+            <Panel id={pages.DESKS}>
+              <Desks />
+            </Panel>
+            <Panel id={pages.COLUMNS}>
+              <Columns />
+            </Panel>
+          </View>
+        </AppRoot>
+      </AdaptivityProvider>
+    </Fragment>
   );
 };
 
