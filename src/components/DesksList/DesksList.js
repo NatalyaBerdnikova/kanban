@@ -1,11 +1,11 @@
-import React, { useEffect, useContext } from "react";
+import React from "react";
 import { CardGrid } from "@vkontakte/vkui";
+import { useSelector } from "react-redux";
 
 import DeskItem from "../DeskItem/DeskItem";
-import Context from "../App/context";
 
 const DesksList = () => {
-  const { desks } = useContext(Context);
+  const { desks } = useSelector((state) => state.desks);
 
   if (!desks.length) {
     return null;
