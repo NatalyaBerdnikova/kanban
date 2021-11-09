@@ -1,18 +1,20 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { CardGrid, Div } from "@vkontakte/vkui";
+import { useDispatch, useSelector } from "react-redux";
 
 import Card from "../Card/Card";
 import CardCreate from "../CardCreate/CardCreate";
 import "./Cards.css";
-import { getCards } from "../../actions/index";
-import Context from "../../components/App/context";
+import { getCards } from "../../api/index";
+import { setCards } from "../../actions/actions";
 
 const Cards = ({ columnId }) => {
-  const { cards, setCards } = useContext(Context);
+  const dispatch = useDispatch();
+  const cards = useSelector((state) => state.cards);
 
   useEffect(() => {
-    getCards(columnId).then((data) => setCards(data));
+    getCards(columnId).then((data) => dispatch(setCards(data)));
   }, []);
 
   return (

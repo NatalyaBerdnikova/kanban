@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Card, Div, Button } from "@vkontakte/vkui";
 import { useRouter } from "react-router5";
 import { useDispatch } from "react-redux";
 
 import "./DeskItem.css";
-import { deleteDesk } from "../../actions/index";
-import Context from "../App/context";
+import { deleteDesk } from "../../api/index";
 import { pages } from "../../router";
 import { removeDesk } from "../../actions/actions";
 

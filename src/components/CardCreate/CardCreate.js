@@ -1,19 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Div } from "@vkontakte/vkui";
+import { useDispatch } from "react-redux";
 
 import CardCreateForm from "./CardCreateForm";
-import { createCard } from "../../actions/index";
-import Context from "../../components/App/context";
+import { createCard } from "../../api/index";
+import { addCard } from "../../actions/actions";
 
 import "./CardCreate.css";
 
 const CardCreate = ({ columnId }) => {
-  const { addCard } = useContext(Context);
+  const dispatch = useDispatch();
 
   const createItem = (name) => {
     return createCard(name, columnId)
-      .then((doc) => addCard({ id: doc.id, name }))
+      .then((doc) => dispatch(addCard({ id: doc.id, name })))
       .catch((e) => console.log(e));
   };
 

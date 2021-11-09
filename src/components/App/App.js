@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import Desks from "../../panels/Desks/Desks";
 import Columns from "../../panels/Columns/Columns";
-import { useAppState } from "./hooks";
 import { pages } from "../../router";
 import { changeRoute } from "../../actions/actions";
 
@@ -19,7 +18,7 @@ const App = () => {
   useEffect(() => {
     router.subscribe((...args) => dispatch(changeRoute(...args)));
 
-    changeRoute(changeRoute({ route }));
+    dispatch(changeRoute({ route }));
   }, [dispatch]);
 
   if (!activePanel) {
