@@ -23,7 +23,7 @@ import {
 } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 
-export const createDesk = async (name) => {
+const createDesk = async (name) => {
   const db = getFirestore();
   try {
     const doc = {
@@ -37,7 +37,7 @@ export const createDesk = async (name) => {
   }
 };
 
-export const getDesks = async () => {
+const getDesks = async () => {
   const db = getFirestore();
   const desks = [];
   const querySnapshot = await getDocs(collection(db, "desks"));
@@ -47,12 +47,12 @@ export const getDesks = async () => {
   return desks;
 };
 
-export const deleteDesk = async (id) => {
+const deleteDesk = async (id) => {
   const db = getFirestore();
   return await deleteDoc(doc(db, "desks", id));
 };
 
-export const getColumns = async (deskId) => {
+const getColumns = async (deskId) => {
   const db = getFirestore();
   const columns = [];
   const q = query(collection(db, "columns"), where("deskId", "==", deskId));
@@ -64,12 +64,12 @@ export const getColumns = async (deskId) => {
   return columns;
 };
 
-export const deleteColumn = async (id) => {
+const deleteColumn = async (id) => {
   const db = getFirestore();
   return await deleteDoc(doc(db, "columns", id));
 };
 
-export const getCards = async (columnId) => {
+const getCards = async (columnId) => {
   const db = getFirestore();
   const cards = [];
   const q = query(collection(db, "cards"), where("columnId", "==", columnId));
@@ -81,12 +81,12 @@ export const getCards = async (columnId) => {
   return cards;
 };
 
-export const deleteCard = async (id) => {
+const deleteCard = async (id) => {
   const db = getFirestore();
   return await deleteDoc(doc(db, "cards", id));
 };
 
-export const createCard = async (name, columnId) => {
+const createCard = async (name, columnId) => {
   const db = getFirestore();
   const doc = {
     name,
@@ -97,7 +97,7 @@ export const createCard = async (name, columnId) => {
   return doc;
 };
 
-export const createColumn = async (name, deskId) => {
+const createColumn = async (name, deskId) => {
   const db = getFirestore();
   const doc = {
     name,
@@ -106,4 +106,16 @@ export const createColumn = async (name, deskId) => {
   const docRef = await addDoc(collection(db, "columns"), doc);
   doc.id = docRef.id;
   return docRef;
+};
+
+export const api = {
+  createDesk,
+  getDesks,
+  deleteDesk,
+  getColumns,
+  deleteColumn,
+  getCards,
+  deleteCard,
+  createCard,
+  createColumn,
 };

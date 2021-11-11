@@ -2,16 +2,13 @@ import React from "react";
 import { useDispatch } from "react-redux";
 
 import CreateForm from "../CreateForm/CreateForm";
-import { createDesk } from "../../api/index";
-import { addDesk } from "../../actions/actions";
+import { createDesk } from "../../actions/actions";
 
 const DeskCreate = () => {
   const dispatch = useDispatch();
 
   const createItem = (name) => {
-    return createDesk(name)
-      .then((doc) => dispatch(addDesk({ id: doc.id, name })))
-      .catch((error) => console.log(error));
+    dispatch(createDesk(name));
   };
 
   return (

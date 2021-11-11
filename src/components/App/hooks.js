@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRoute } from "react-router5";
 
 import { pages } from "../../router";
-import { getDesks } from "../../actions";
+import { apiGetDesks } from "../../actions";
 
 const useColumnsState = () => {
   const [columns, setColumns] = useState([]);
@@ -20,7 +20,7 @@ const useDesksState = () => {
 
   // Запрос в базу данных за досками
   useEffect(() => {
-    getDesks().then(setDesks);
+    apiGetDesks().then(setDesks);
   }, []);
 
   return { desks, setDesks, addDesk, removeDesk };

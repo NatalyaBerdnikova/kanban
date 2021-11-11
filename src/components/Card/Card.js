@@ -1,18 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Card, Div, Button } from "@vkontakte/vkui";
+import { Card, Div } from "@vkontakte/vkui";
 import { useDispatch } from "react-redux";
 
 import "./Card.css";
-import { deleteCard } from "../../api/index";
+import { deleteCard } from "../../actions/actions";
 
 const ColumnCard = ({ children, id }) => {
   const dispatch = useDispatch();
-  const deleteItem = async () => {
-    deleteCard(id)
-      .then(() => dispatch(removeCard(id)))
-      .catch((e) => console.log(e));
-  };
+  const deleteItem = () => dispatch(deleteCard(id));
 
   return (
     <Card mode="outline">

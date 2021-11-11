@@ -6,16 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import Card from "../Card/Card";
 import CardCreate from "../CardCreate/CardCreate";
 import "./Cards.css";
-import { getCards } from "../../api/index";
-import { setCards } from "../../actions/actions";
+import { fetchCards } from "../../actions/actions";
 
 const Cards = ({ columnId }) => {
   const dispatch = useDispatch();
   const cards = useSelector((state) => state.cards);
 
   useEffect(() => {
-    getCards(columnId).then((data) => dispatch(setCards(data)));
-  }, []);
+    dispatch(fetchCards(columnId));
+  }, [dispatch, columnId]);
 
   return (
     <div>

@@ -11,17 +11,12 @@ import { useDispatch } from "react-redux";
 
 import "./Column.css";
 import Cards from "../Cards/Cards";
-import { deleteColumn } from "../../api/index";
-import { removeColumn, setPopout } from "../../actions/actions";
+import { deleteColumn, setPopout } from "../../actions/actions";
 import Icon16MoreHorizontal from "@vkontakte/icons/dist/16/more_horizontal";
 
 const Column = ({ name, id }) => {
   const dispatch = useDispatch();
-  const deleteItem = () => {
-    deleteColumn(id)
-      .then((id) => dispatch(removeColumn(id)))
-      .catch((e) => console.log(e));
-  };
+  const deleteItem = () => dispatch(deleteColumn(id));
 
   const showColumnOptions = () => {
     dispatch(

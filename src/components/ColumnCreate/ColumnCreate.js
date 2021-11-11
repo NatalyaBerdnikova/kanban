@@ -5,8 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import ColumnCreateForm from "./ColumnCreateForm";
 import "./ColumnCreate";
-import { createColumn } from "../../api/index";
-import { addColumn } from "../../actions/actions";
+import { createColumn } from "../../actions/actions";
 
 const ColumnCreate = () => {
   const dispatch = useDispatch();
@@ -18,11 +17,7 @@ const ColumnCreate = () => {
   } = useRoute();
   const desk = desks.find(({ id }) => id === deskId) || {};
 
-  const createItem = (name) => {
-    return createColumn(name, desk.id)
-      .then((doc) => dispatch(addColumn({ id: doc.id, name })))
-      .catch((e) => console.log(e));
-  };
+  const createItem = (name) => dispatch(createColumn(name, deskId));
 
   return (
     <Div className="column">

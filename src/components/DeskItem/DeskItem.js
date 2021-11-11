@@ -5,9 +5,8 @@ import { useRouter } from "react-router5";
 import { useDispatch } from "react-redux";
 
 import "./DeskItem.css";
-import { deleteDesk } from "../../api/index";
 import { pages } from "../../router";
-import { removeDesk } from "../../actions/actions";
+import { deleteDesk } from "../../actions/actions";
 
 const DeskItem = ({ id, children }) => {
   const dispatch = useDispatch();
@@ -15,9 +14,8 @@ const DeskItem = ({ id, children }) => {
   const goToColumnPanel = () => router.navigate(pages.COLUMNS, { deskId: id });
   const deleteItem = async (event) => {
     event.stopPropagation();
-    deleteDesk(id)
-      .then(() => dispatch(removeDesk(id)))
-      .catch((e) => console.log(e));
+
+    dispatch(deleteDesk(id));
   };
 
   return (

@@ -1,36 +1,30 @@
 import React, { useEffect } from "react";
 import { PanelHeader, Gallery, PanelHeaderBack } from "@vkontakte/vkui";
 import { useRoute } from "react-router5";
-import { useRouter } from "react-router5";
 import { useSelector, useDispatch } from "react-redux";
 
 import "./Columns.css";
 import ColumnCreate from "../../components/ColumnCreate/ColumnCreate";
 import Column from "../../components/Column/Column";
-import { getColumns } from "../../api/index";
-import { setColumns, setActivePanel } from "../../actions/actions";
-import { pages } from "../../router";
+import { fetchColumns } from "../../actions/actions";
 
 const Columns = () => {
   const dispatch = useDispatch();
   const columns = useSelector((state) => state.columns);
   const desks = useSelector((state) => state.desks);
 
-  const router = useRouter();
   const {
     route: {
       params: { deskId },
     },
   } = useRoute();
-  const goToDesks = () => dispatch(setActivePanel(pages.DESKS));
+  const goToDesks = () => window.history.back();
   const desk = desks.find(({ id }) => id === deskId) || {};
 
-  // Request to DataBase for columns
+  // Запрос в базу данных за колонками
   useEffect(() => {
-    if (desk.id) {
-      getColumns(desk.id).then((columns) => dispatch(setColumns(columns)));
-    }
-  }, [desk]);
+    dispatch(fetchColumns(deskId));
+  }, [dispatch, deskId]);
 
   return (
     <>
