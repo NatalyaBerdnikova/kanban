@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./components/App/AppContainer";
+import App from "./app/components/App/AppContainer";
 
 import * as router from "./router/index";
 import * as backend from "./api/index";
-import { getStore } from "./store/index";
+import { getStore } from "./app/store";
 
 // Init VK  Mini App
 // bridge.send("VKWebAppInit");

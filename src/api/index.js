@@ -30,7 +30,8 @@ const createDesk = async (name) => {
       name,
     };
     const docRef = await addDoc(collection(db, "desks"), doc);
-    return docRef;
+    doc.id = docRef.id;
+    return doc;
   } catch (e) {
     console.error("Error adding document: ", e);
     return e;
@@ -50,6 +51,17 @@ const getDesks = async () => {
 const deleteDesk = async (id) => {
   const db = getFirestore();
   return await deleteDoc(doc(db, "desks", id));
+};
+
+const createColumn = async (name, deskId) => {
+  const db = getFirestore();
+  const doc = {
+    name,
+    deskId,
+  };
+  const docRef = await addDoc(collection(db, "columns"), doc);
+  doc.id = docRef.id;
+  return doc;
 };
 
 const getColumns = async (deskId) => {
@@ -95,17 +107,6 @@ const createCard = async (name, columnId) => {
   const docRef = await addDoc(collection(db, "cards"), doc);
   doc.id = docRef.id;
   return doc;
-};
-
-const createColumn = async (name, deskId) => {
-  const db = getFirestore();
-  const doc = {
-    name,
-    deskId,
-  };
-  const docRef = await addDoc(collection(db, "columns"), doc);
-  doc.id = docRef.id;
-  return docRef;
 };
 
 export const api = {
