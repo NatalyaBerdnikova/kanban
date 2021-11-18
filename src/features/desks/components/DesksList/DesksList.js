@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import { CardGrid } from "@vkontakte/vkui";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -31,4 +31,4 @@ const DesksList = () => {
   );
 };
 
-export default DesksList;
+export default memo(DesksList);

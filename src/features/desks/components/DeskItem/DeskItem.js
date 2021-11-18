@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, memo } from "react";
 import PropTypes from "prop-types";
 import { Card, Div, Button } from "@vkontakte/vkui";
 import { useRouter } from "react-router5";
@@ -11,12 +11,18 @@ import { deleteDesk } from "../../actions";
 const DeskItem = ({ id, children }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const goToColumnPanel = () => router.navigate(pages.COLUMNS, { deskId: id });
-  const deleteItem = async (event) => {
-    event.stopPropagation();
+  const goToColumnPanel = useCallback(
+    () => router.navigate(pages.COLUMNS, { deskId: id }),
+    [router, id]
+  );
+  const deleteItem = useCallback(
+    (event) => {
+      event.stopPropagation();
 
-    dispatch(deleteDesk(id));
-  };
+      dispatch(deleteDesk(id));
+    },
+    [dispatch, id]
+  );
 
   return (
     <Card onClick={goToColumnPanel}>
@@ -38,4 +44,4 @@ DeskItem.propTypes = {
   ]).isRequired,
 };
 
-export default DeskItem;
+export default memo(DeskItem);

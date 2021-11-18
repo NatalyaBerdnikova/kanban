@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, memo } from "react";
 import { PanelHeader, Gallery, PanelHeaderBack } from "@vkontakte/vkui";
 import { useRoute } from "react-router5";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,7 +20,7 @@ const Columns = () => {
       params: { deskId },
     },
   } = useRoute();
-  const goToDesks = () => window.history.back();
+  const goToDesks = useCallback(() => dispatch(goBack()), [dispatch]);
   const desk = desks.find(({ id }) => id === deskId) || {};
 
   // Запрос в базу данных за колонками
@@ -45,4 +45,4 @@ const Columns = () => {
   );
 };
 
-export default Columns;
+export default memo(Columns);

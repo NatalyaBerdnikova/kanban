@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-class ErrorBoundary extends React.Component {
+class ErrorBoundary extends React.PureComponent {
   constructor(props) {
     super(props);
 
@@ -19,14 +19,16 @@ class ErrorBoundary extends React.Component {
     // console.log(error, errorInfo);
   }
 
+  reloadPage() {
+    window.location.reload();
+  }
+
   render() {
     if (this.state.hasError) {
       return (
         <>
           <div>Guys, something strange is happened!</div>
-          <button onClick={() => window.location.reload()}>
-            Reload the page
-          </button>
+          <button onClick={this.reloadPage}>Reload the page</button>
         </>
       );
     }

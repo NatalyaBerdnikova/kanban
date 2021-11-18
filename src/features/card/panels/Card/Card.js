@@ -1,13 +1,9 @@
-import React, { Fragment, useEffect, useState } from "react";
-import {
-  PanelHeaderBack,
-  PanelHeaderSimple,
-  PanelSpinner,
-} from "@vkontakte/vkui";
+import React, { Fragment, useEffect, useState, useCallback, memo } from "react";
+import { PanelHeaderBack, PanelHeader, PanelSpinner } from "@vkontakte/vkui";
 import { useDispatch, useSelector } from "react-redux";
 import { useRoute } from "react-router5";
-import { fetchCard } from "../../../cards/actions";
-import { getName } from "../../../cards/selectors";
+import { fetchCard } from "../../actions";
+import { getName } from "../../selectors";
 import { goBack } from "../../../../app/actions";
 import CardContent from "../../components/CardContent/CardContent";
 
@@ -20,7 +16,7 @@ const Card = () => {
     },
   } = useRoute();
   const cardName = useSelector(getName);
-  const goToColumns = () => dispatch(goBack());
+  const goToColumns = useCallback(() => dispatch(goBack()), [dispatch]);
 
   useEffect(() => {
     if (cardId) {
@@ -32,9 +28,9 @@ const Card = () => {
 
   return (
     <Fragment>
-      <PanelHeaderSimple left={<PanelHeaderBack onClick={goToColumns} />}>
+      <PanelHeader left={<PanelHeaderBack onClick={goToColumns} />}>
         Карточка {cardName ? `«${cardName}»` : ""}
-      </PanelHeaderSimple>
+      </PanelHeader>
 
       {isLoading && <PanelSpinner />}
 
@@ -43,4 +39,4 @@ const Card = () => {
   );
 };
 
-export default Card;
+export default memo(Card);

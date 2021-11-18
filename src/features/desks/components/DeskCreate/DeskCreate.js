@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, memo } from "react";
 import { useDispatch } from "react-redux";
 
 import CreateForm from "../../../../components/CreateForm/CreateForm";
@@ -7,7 +7,10 @@ import { createDesk } from "../../actions";
 const DeskCreate = () => {
   const dispatch = useDispatch();
 
-  const createItem = (name) => dispatch(createDesk(name));
+  const createItem = useCallback(
+    (name) => dispatch(createDesk(name)),
+    [dispatch]
+  );
 
   return (
     <CreateForm
@@ -18,4 +21,4 @@ const DeskCreate = () => {
   );
 };
 
-export default DeskCreate;
+export default memo(DeskCreate);

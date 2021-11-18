@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, memo } from "react";
 import PropTypes from "prop-types";
 import {
   Div,
@@ -17,19 +17,27 @@ import { setPopout } from "../../../../app/actions";
 
 const Column = ({ name, id }) => {
   const dispatch = useDispatch();
-  const deleteItem = () => dispatch(deleteColumn(id));
 
-  const showColumnOptions = () => {
+  const deleteItem = useCallback(
+    () => dispatch(deleteColumn(id)),
+    [dispatch, id]
+  );
+  const showColumnOptions = useCallback(() => {
     dispatch(
       setPopout(
         <ActionSheet onClose={() => dispatch(setPopout(null))}>
           <ActionSheetItem autoclose mode="destructive" onClick={deleteItem}>
-            Delete
+            Удалить
           </ActionSheetItem>
+          {osname === IOS && (
+            <ActionSheetItem autoclose mode="cancel">
+              Отменить
+            </ActionSheetItem>
+          )}
         </ActionSheet>
       )
     );
-  };
+  }, [dispatch, deleteItem, osname]);
 
   return (
     <Div className="column">
@@ -56,4 +64,4 @@ Column.propTypes = {
   id: PropTypes.string.isRequired,
 };
 
-export default Column;
+export default memo(Column);

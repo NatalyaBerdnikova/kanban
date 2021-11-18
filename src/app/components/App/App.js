@@ -1,14 +1,16 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, memo } from "react";
 import { View, Panel, AdaptivityProvider, AppRoot } from "@vkontakte/vkui";
 import "@vkontakte/vkui/dist/vkui.css";
 import { useRoute } from "react-router5";
 import { useSelector, useDispatch } from "react-redux";
 
-import Desks from "../../../features/desks/panels/Desks/Desks";
-import Columns from "../../../features/columns/panels/Columns/Columns";
 import { pages } from "../../../router";
 import { changeRoute } from "../../actions";
 import { getActivePanel, getPopout } from "../../selectors";
+
+import Desks from "../../../features/desks/panels/Desks/Desks";
+import Columns from "../../../features/columns/panels/Columns/Columns";
+import Card from "../../../features/card/panels/Card/Card";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -44,4 +46,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default memo(App);

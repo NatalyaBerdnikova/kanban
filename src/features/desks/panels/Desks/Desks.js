@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { PanelHeader, Div } from "@vkontakte/vkui";
 
 import DesksList from "../../components/DesksList/DesksList";
@@ -16,4 +16,4 @@ const Desks = () => {
   );
 };
 
-export default Desks;
+export default memo(Desks);
