@@ -4,6 +4,8 @@ logs
 npm-debug.log*
 *.lock
 
+*.json
+
 # Dependency directories
 package-lock.json
 /node_modules
@@ -16,3 +18,5 @@ package-lock.json
 
 .vscode
 .idea
+
+node_modules

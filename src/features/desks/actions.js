@@ -13,6 +13,10 @@ export const setDesks = (desks) => ({
   type: actionType.SET_DESKS,
   payload: { desks },
 });
+export const replaceDesk = (id, name) => ({
+  type: actionType.REPLACE_DESK,
+  payload: { id, name },
+});
 
 export const fetchDesks = () => (dispatch) =>
   api
@@ -40,3 +44,12 @@ export const createDesk = (name) => (dispatch) =>
       dispatch(addDesk(doc));
     })
     .catch(() => dispatch({ type: actionType.CREATE_DESK_FAIL }));
+
+export const editDesk = (id, name) => (dispatch) =>
+  api
+    .editDesk(id, name)
+    .then(() => {
+      dispatch({ type: actionType.EDIT_DESK_SUCCESS });
+      dispatch(replaceDesk(id, name));
+    })
+    .catch(() => dispatch({ type: actionType.EDIT_DESK_FAIL }));

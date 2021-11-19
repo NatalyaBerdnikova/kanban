@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { CardGrid, Div } from "@vkontakte/vkui";
 
-import Card from "../../../columns/components/Card/Card";
+import ColumnCard from "../../../columns/components/ColumnCard/ColumnCard";
 import CardCreate from "../CardCreate/CardCreate";
 import { fetchCards } from "../../actions";
 import "./Cards.css";
@@ -23,9 +23,9 @@ const Cards = ({ columnId }) => {
       <CardGrid>
         {cards.length > 0 ? (
           cards.map(({ id, name }) => (
-            <Card key={id} id={id}>
+            <ColumnCard key={id} id={id}>
               {name}
-            </Card>
+            </ColumnCard>
           ))
         ) : (
           <Div>You don't have cards yet :(</Div>

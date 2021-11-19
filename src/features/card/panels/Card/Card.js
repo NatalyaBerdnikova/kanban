@@ -32,9 +32,7 @@ const Card = () => {
         Карточка {cardName ? `«${cardName}»` : ""}
       </PanelHeader>
 
-      {isLoading && <PanelSpinner />}
-
-      <CardContent />
+      {isLoading ? <PanelSpinner /> : <CardContent />}
     </Fragment>
   );
 };

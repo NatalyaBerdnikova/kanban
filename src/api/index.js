@@ -38,6 +38,12 @@ const createDesk = async (name) => {
   }
 };
 
+const editDesk = (id, name) => {
+  const db = getFirestore();
+
+  return db.collection("desks").doc(id).update({ name });
+};
+
 const getDesks = async () => {
   const db = getFirestore();
   const desks = [];
@@ -64,6 +70,23 @@ const createColumn = async (name, deskId) => {
   return doc;
 };
 
+const editColumn = (id, name) => {
+  const db = getFirestore();
+
+  return db.collection("columns").doc(id).update({ name });
+};
+
+const deleteColumn = async (id) => {
+  const db = getFirestore();
+  return await deleteDoc(doc(db, "columns", id));
+};
+
+const editCard = (id, data = {}) => {
+  const db = getFirestore();
+
+  return db.collection("cards").doc(id).update(data);
+};
+
 const getColumns = async (deskId) => {
   const db = getFirestore();
   const columns = [];
@@ -74,11 +97,6 @@ const getColumns = async (deskId) => {
     columns.push({ id: doc.id, deskId, name });
   });
   return columns;
-};
-
-const deleteColumn = async (id) => {
-  const db = getFirestore();
-  return await deleteDoc(doc(db, "columns", id));
 };
 
 const getCards = async (columnId) => {
@@ -93,13 +111,28 @@ const getCards = async (columnId) => {
   return cards;
 };
 
-const deleteCard = async (id) => {
+const getCard = (cardId) => {
   const db = getFirestore();
-  return await deleteDoc(doc(db, "cards", id));
+
+  return db
+    .collection("cards")
+    .doc(cardId)
+    .get()
+    .then((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+};
+
+const deleteCard = (id) => {
+  const db = getFirestore();
+
+  return db.collection("cards").doc(id).delete();
 };
 
 const createCard = async (name, columnId) => {
   const db = getFirestore();
+
   const doc = {
     name,
     columnId,
@@ -111,6 +144,7 @@ const createCard = async (name, columnId) => {
 
 export const api = {
   createDesk,
+  editDesk,
   getDesks,
   deleteDesk,
   getColumns,
@@ -119,4 +153,7 @@ export const api = {
   deleteCard,
   createCard,
   createColumn,
+  editColumn,
+  editCard,
+  getCard,
 };

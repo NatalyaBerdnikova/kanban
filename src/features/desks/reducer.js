@@ -36,6 +36,25 @@ const reducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case actionType.REPLACE_DESK: {
+      const { id, name } = payload;
+      const list = state.list.map((desk) => {
+        if (desk.id !== id) {
+          return desk;
+        }
+
+        return {
+          ...desk,
+          name,
+        };
+      });
+
+      return {
+        ...state,
+        list,
+      };
+    }
+
     default: {
       return state;
     }

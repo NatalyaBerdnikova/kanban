@@ -9,6 +9,7 @@ import Column from "../../components/Column/Column";
 import { fetchColumns } from "../../actions";
 import { getColumns } from "../../selectors";
 import { getDesks } from "../../../desks/selectors";
+import { goBack } from "../../../../app/actions";
 
 const Columns = () => {
   const dispatch = useDispatch();
